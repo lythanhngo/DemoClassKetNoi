@@ -12,14 +12,12 @@ namespace DemoClassKetNoi
     class clsKetnoi
     {
         public SqlConnection conn;
-
         // Hàm kết nối
         public clsKetnoi()
         {
             conn = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=QLTS;Persist Security Info=True;User ID=sa;Password=system");
             conn.Open();
         }
-
         // Hàm đóng kết nối
         public void dongketnoi()
         {
@@ -67,7 +65,6 @@ namespace DemoClassKetNoi
                 kn.dongketnoi();
             }
         }
-
         // hàm đổ dử liệu sql vào DataGridView
         public static bool dodulieu_datagirbview(DataGridView dg, string chuoi)
         {
@@ -88,7 +85,6 @@ namespace DemoClassKetNoi
                 return false;
             }
         }
-
         // Hàm đổ dữ liệu sql vào Combobox
         // hienthi : hiển thị bên ngoài
         // giá trị : giá trị bên trong
@@ -104,15 +100,11 @@ namespace DemoClassKetNoi
                 cb.DisplayMember = hienthi;
                 cb.ValueMember = giatri;   
             }
-            catch
-            {
-
-            }
+            catch { }
             finally
             {
                 kn.dongketnoi();
             }
         }
-
     }
 }
