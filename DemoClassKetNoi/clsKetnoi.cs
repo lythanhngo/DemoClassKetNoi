@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
-
+// Cách dùng <Tên Class>.<Tên hàm>(<Các đối số tương ứng>);
+// VD: clsKetnoi.laybang();
 namespace DemoClassKetNoi
 {
     class clsKetnoi
