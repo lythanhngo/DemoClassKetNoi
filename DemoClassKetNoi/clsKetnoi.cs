@@ -16,26 +16,38 @@ namespace DemoClassKetNoi
         // Hàm kết nối
         public clsKetnoi()
         {
-            try
-            {
-                conn = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=QLTS;Persist Security Info=True;User ID=sa;Password=system");
-                conn.Open();
-            }
-            catch
-            {
-                MessageBox.Show("Kết nối không thành công");
-            }
+            conn = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=QLTS;Persist Security Info=True;User ID=sa;Password=system");
+            conn.Open();
         }
 
         // Hàm đóng kết nối
         public void dongketnoi()
         {
             if (conn.State == ConnectionState.Open)
-            {
                 conn.Close();
+        }
+        // Hàm lấy bảng
+        public static DataTable laybang(string chuoi)
+        {
+            clsKetnoi kn = new clsKetnoi();
+            SqlDataAdapter da = new SqlDataAdapter(new SqlCommand(chuoi, kn.conn));
+            DataTable dt = new DataTable();
+            try
+            {
+                da.Fill(dt);
+                kn.dongketnoi();
+                if (dt.Rows.Count > 0)
+                {
+                    return dt;
+                }
+                else
+                    return null;
+            }
+            catch
+            {
+                return null;
             }
         }
-
         // Hàm thêm sửa xoá dư liệu -- Nếu hàm trả về true là thực hiện thành công, ngược lại không thành công
         public static bool dieuchinh(string chuoi)
         {
@@ -59,13 +71,10 @@ namespace DemoClassKetNoi
         // hàm đổ dử liệu sql vào DataGridView
         public static bool dodulieu_datagirbview(DataGridView dg, string chuoi)
         {
-            clsKetnoi kn = new clsKetnoi();
-            SqlDataAdapter da = new SqlDataAdapter(new SqlCommand(chuoi, kn.conn));
             DataTable dt = new DataTable();
+            dt = clsKetnoi.laybang(chuoi);
             try
             {
-                da.Fill(dt);
-                kn.dongketnoi();
                 if (dt.Rows.Count > 0)
                 {
                     dg.DataSource = dt;
